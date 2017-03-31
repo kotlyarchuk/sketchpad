@@ -1,37 +1,35 @@
 $(document).ready(function(){
-    createField(16);
+  finished = false;
+  drawingCanvas = document.getElementById('canvas');;
+  context = drawingCanvas.getContext('2d');
 
-    function createField(size){
-        clearField();
-        width = parseInt($('.container').css('width'));
-        boxWidth = width / size;
+  $('#canvas').on('mousedown', function(event){
+    finished = false;
+    offset = $(this).offset();
+    pageX = event.pageX - offset.left;
+    pageY = event.pageY - offset.top;
+    context.moveTo(pageX, pageY);
+    context.beginPath();
+  });
 
-            count = size*size;
-            container = "";
-            for (i = 0; i < count; i++) {
-                container += '<div class="box" style="width: '+boxWidth+'px; height: '+boxWidth+'px; float: left; margin: 0;"></div>';
-                // container += ($('<div class="box"></div>').css({'width':boxWidth, 'height':boxWidth, 'display':'inline-block', 'margin':'0'}))
-            }
-            $('.container').append($(container));
+  $('#canvas').on('mousemove', function(event){
+    if(finished !== true){
+      offset = $(this).offset();
+      pageX = event.pageX - offset.left;
+      pageY = event.pageY - offset.top;
+      context.lineTo(pageX, pageY);
+      context.stroke();
     }
+  });
 
-    function clearField(){
-        $('.container > .box').remove();
-    }
+  $('#canvas').on('mouseup', function(){
+    finished = true;
+  });
 
-    function addColor(){
-        //alert(234);
+  $('.clear').on('click', clearCanvas);
 
-    }
-
-    $('.clear').on('click', function(){
-        size = +prompt( "Which size (AxA), enter A" );
-        createField(size);
-    });
-
-    $('.container').on('mouseenter', 'div', function(){
-        $(this).addClass('hovered');
-    });
-
+  function clearCanvas(){
+    context.clearRect(0, 0, 600, 600);
+  }
 
 });
