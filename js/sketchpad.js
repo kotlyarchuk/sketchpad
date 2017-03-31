@@ -7,9 +7,9 @@ $(document).ready(function(){
         boxWidth = width / size;
 
             count = size*size;
-            container = '';
+            container = "";
             for (i = 0; i < count; i++) {
-                container += '<div class="box" style="width: '+boxWidth+'px; height: '+boxWidth+'px; display: inline-block; margin: 0;"></div>';
+                container += '<div class="box" style="width: '+boxWidth+'px; height: '+boxWidth+'px; float: left; margin: 0;"></div>';
                 // container += ($('<div class="box"></div>').css({'width':boxWidth, 'height':boxWidth, 'display':'inline-block', 'margin':'0'}))
             }
             $('.container').append($(container));
