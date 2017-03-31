@@ -1,7 +1,20 @@
 $(document).ready(function(){
-  finished = false;
+
+  $('.color').each(function(){
+    $(this).css( 'background-color', $(this).attr('id') );
+  });
+
+
+  finished = true;
   drawingCanvas = document.getElementById('canvas');;
   context = drawingCanvas.getContext('2d');
+
+  $('.menu').on('click', '.color', function(){
+    finished = true;
+    $('.color').removeClass('bordered');
+    $(this).addClass('bordered');
+    color = $(this).prop('id');
+  });
 
   $('#canvas').on('mousedown', function(event){
     finished = false;
@@ -18,7 +31,13 @@ $(document).ready(function(){
       pageX = event.pageX - offset.left;
       pageY = event.pageY - offset.top;
       context.lineTo(pageX, pageY);
-      context.stroke();
+      if(color !== undefined){
+        context.strokeStyle = color;
+        context.stroke();
+      }
+      else {
+        context.stroke();
+      }
     }
   });
 
@@ -26,7 +45,11 @@ $(document).ready(function(){
     finished = true;
   });
 
-  $('.clear').on('click', clearCanvas);
+
+  $('.clear').on('click', function(){
+    finished = true;
+    clearCanvas();
+  });
 
   function clearCanvas(){
     context.clearRect(0, 0, 600, 600);
