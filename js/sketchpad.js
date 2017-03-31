@@ -27,6 +27,7 @@ $(document).ready(function(){
 
   $('#canvas').on('mousemove', function(event){
     if(finished !== true){
+      $('#canvas').css('cursor','pointer');
       offset = $(this).offset();
       pageX = event.pageX - offset.left;
       pageY = event.pageY - offset.top;
